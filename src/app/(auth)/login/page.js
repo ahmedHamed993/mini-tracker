@@ -12,8 +12,8 @@ const Login = async () => {
   if(session?.user) redirect("/");
 
   return (
-    <main className='py-8 min-h-screen bg-slate-50'>
-      <div className='container mx-auto'>
+    <main className='py-8 px-4 min-h-screen bg-slate-50'>
+      <div className='container mx-auto '>
         <div className='flex max-w-[420px] md:max-w-[800px] shadow-md mx-auto rounded-lg border-2 overflow-hidden bg-white'>
           <Image src='/login_img.jpg' width={400} height={600} alt='login' className='hidden md:block' />
           <LoginForm />
