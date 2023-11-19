@@ -6,9 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addCardSchema } from '@/schemes/card/addCardSchema';
 // components 
 import InputField from '@/components/inputs/InputField';
+// next auth 
 import { useSession } from 'next-auth/react';
+// firebase 
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+// alerts 
 import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 const page = () => {
@@ -51,7 +54,6 @@ const page = () => {
       enqueueSnackbar("try again later",{variant:'error'});
     }
   }
-  console.log(errors)
   return (
     <div className='flex gap-2 justify-center items-center py-4'>
       <SnackbarProvider />
