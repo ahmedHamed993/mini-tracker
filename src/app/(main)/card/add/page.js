@@ -95,14 +95,14 @@ const page = () => {
                   placeholder='ex. 1500'
                   type='number'
                   register={{...register(`spent.${index}.value`)} }
-                  errorMessage={errors?.spent?.[index]?.value.message}
+                  errorMessage={errors?.spent?.[index]?.value?.message}
                 />
                 <InputField 
                   id={`spent.${index}.note`} 
                   label="Note" 
                   placeholder='ex. rent'
                   register={{...register(`spent.${index}.note`)} }
-                  errorMessage={errors?.spent?.[index]?.note.message}
+                  errorMessage={errors?.spent?.[index]?.note?.message}
                 />
                 
                 <button 

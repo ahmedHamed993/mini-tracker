@@ -9,7 +9,7 @@ import InputField from '@/components/inputs/InputField';
 // next auth 
 import { useSession } from 'next-auth/react';
 // firebase 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from '@/firebaseConfig';
 // alerts 
 import { SnackbarProvider, enqueueSnackbar } from 'notistack';
@@ -43,18 +43,12 @@ const EditCardPage = ({params}) => {
   });
   // submit form 
   const onSubmit = async (values) => {
-    // const data = {
-    //   ...values, 
-    //   userId:session?.user?.uid,
-    // }
-    // const addNewCardRes = await addDoc(collection(db, "items"), data);
-    // if(addNewCardRes.id){
-    //   enqueueSnackbar("card added successfully",{variant:'success'});
-    //   reset();
-    // } else {
-    //   enqueueSnackbar("try again later",{variant:'error'});
-    // }
-    console.log(values)
+    const docRef = doc(db, "items", params.id);
+    setDoc(docRef, values , { merge: true }).then((doc) => {
+      enqueueSnackbar("Card edited successfully",{variant:"success"})
+    }).catch(error => {
+      enqueueSnackbar("error",{variant:"error"})
+     })
   }
   // fetch current card data 
   const fetchCurrentCard = () => {
@@ -76,7 +70,7 @@ const EditCardPage = ({params}) => {
   useEffect(()=>{
     fetchCurrentCard();
   },[])
-
+  console.log("schema error", errors)
   if(loading) return <p className='text-center'>loading....</p>
   return (
     <div className='flex gap-2 justify-center items-center py-4'>
@@ -119,14 +113,14 @@ const EditCardPage = ({params}) => {
                 placeholder='ex. 1500'
                 type='number'
                 register={{...register(`spent.${index}.value`)} }
-                errorMessage={errors?.spent?.[index]?.value.message}
+                errorMessage={errors?.spent?.[index]?.value?.message}
               />
               <InputField 
                 id={`spent.${index}.note`} 
                 label="Note" 
                 placeholder='ex. rent'
                 register={{...register(`spent.${index}.note`)} }
-                errorMessage={errors?.spent?.[index]?.note.message}
+                errorMessage={errors?.spent?.[index]?.note?.message}
               />
               <button 
                 type='button'
