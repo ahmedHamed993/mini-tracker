@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from "next/image"
 import { headers } from "next/headers";
+import LogoutButton from '../buttons/LogoutButton';
 const Navbar = () => {
     const heads = headers()
     const pathname = heads.get('next-url')
@@ -13,6 +14,7 @@ const Navbar = () => {
                 <Link href="/">
                     <Image src='/logo.webp' alt='tracker logo' width={50} height={50} /> 
                 </Link>
+                <LogoutButton />
             </div>
         </nav>
   )
